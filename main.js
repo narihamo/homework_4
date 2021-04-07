@@ -24,7 +24,11 @@ async function postData(data) {
     	await sleep(1500)
     	dataFromMars.push(data)
     } catch(e) {
-    	console.error(e);
+    	document.body.insertAdjacentHTML('beforeend', `<div class='error'>
+			<div class='error-item'>${e}</div>
+		</div>`)
+		console.error(e);
+		console.log('catched')
     }
 }
 
@@ -35,7 +39,11 @@ async function getData() {
         console.log(`${dataFromMars.date}, ${dataFromMars.temperature}, ${dataFromMars.windspeed}, ${dataFromMars.pressure}`)
    		})
     } catch(e) {
-    	console.error(e);
+    	document.body.insertAdjacentHTML('beforeend', `<div class='error'>
+			<div class='error-item'>${e}</div>
+		</div>`)
+		console.error(e);
+		console.log('catched')
     }
 }
 
@@ -78,7 +86,11 @@ async function showCards() {
 			</div>`)
 		})
 	} catch(e) {
+		document.body.insertAdjacentHTML('beforeend', `<div class='error'>
+			<div class='error-item'>${e}</div>
+		</div>`)
 		console.error(e);
+		console.log('catched')
 	}
 }
 
