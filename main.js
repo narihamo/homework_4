@@ -49,33 +49,37 @@ postData(
 ).then(getData).then(showCards)
 
 async function showCards() {
-	dataFromMars.forEach((dataFromMars) => {
-		cards.insertAdjacentHTML('beforeend', `<div class='card'>
-			<p class='alert'>Загрузка данных...</p>
-		</div>`)
-	})
-
-	await sleep(3000)
-
-	let cardsItems = document.querySelectorAll('.card')
-	for (let card of cardsItems) {
-		card.remove()
+	try {
+		dataFromMars.forEach((dataFromMars) => {
+			cards.insertAdjacentHTML('beforeend', `<div class='card'>
+				<p class='alert'>Загрузка данных...</p>
+			</div>`)
+		})
+	
+		await sleep(3000)
+	
+		let cardsItems = document.querySelectorAll('.card')
+		for (let card of cardsItems) {
+			card.remove()
+		}
+	
+		dataFromMars.forEach((dataFromMars) => {
+			let cardDate = dataFromMars.date,
+			cardTemperature = dataFromMars.temperature,
+			cardWindspeed = dataFromMars.windspeed,
+			cardPressure = dataFromMars.pressure
+			
+			cards.insertAdjacentHTML('beforeend', `<div class=card>
+				<p class='date'>Дата: ${cardDate}</p>
+				<p class='temperature'>Температура: ${cardTemperature}</p>
+				<p class='windspeed'>Скорость ветра: ${cardWindspeed}</p>
+				<p class='pressure'>Давление: ${cardPressure}</p>
+				<button type="button" class="btn" onclick='btnLog()'>Вывести лог</button>
+			</div>`)
+		})
+	} catch(e) {
+		console.error(e);
 	}
-
-	dataFromMars.forEach((dataFromMars) => {
-		let cardDate = dataFromMars.date,
-		cardTemperature = dataFromMars.temperature,
-		cardWindspeed = dataFromMars.windspeed,
-		cardPressure = dataFromMars.pressure
-		
-		cards.insertAdjacentHTML('beforeend', `<div class=card>
-			<p class='date'>Дата: ${cardDate}</p>
-			<p class='temperature'>Температура: ${cardTemperature}</p>
-			<p class='windspeed'>Скорость ветра: ${cardWindspeed}</p>
-			<p class='pressure'>Давление: ${cardPressure}</p>
-			<button type="button" class="btn" onclick='btnLog()'>Вывести лог</button>
-		</div>`)
-	})
 }
 
 const btnLog = () => {
