@@ -94,7 +94,21 @@ async function showCards() {
 	}
 }
 
+// Object.prototype.btnLog = () => {
+// 	this.date
+// }
+
 const btnLog = () => {
-	let {date, ...otherData} = dataFromMars
-	console.log(date, {...otherData})
+	const card = event.target.parentNode
+
+	const cardValue = {
+		date: card.querySelector('.date').textContent,
+		temperature: card.querySelector('.temperature').textContent,
+		windspeed: card.querySelector('.windspeed').textContent,
+		pressure: card.querySelector('.pressure').textContent
+	}
+
+	const {date, ...otherCharacteristics} = cardValue
+
+	console.log(date + {otherCharacteristics})
 }
