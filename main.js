@@ -47,29 +47,30 @@ async function getData() {
     }
 }
 
-postData(
-  {
-    date: '3 июля 2020 г.',
-    temperature: '-70,7 ° F',
-    windspeed: '11,5 миль/ч',
-    pressure: '766,9  ПА',
-  }
-).then(getData).then(showCards)
-
 async function showCards() {
 	try {
+		container.insertAdjacentHTML('beforeend', `<div class='loader'><p>Ожидаем данные...</p></div>`)
+
+		await postData({
+    		date: '3 июля 2020 г.',
+    		temperature: '-70,7 ° F',
+    		windspeed: '11,5 миль/ч',
+    		pressure: '766,9  ПА',
+  		})
+		.then(getData)
+
 		dataFromMars.forEach((dataFromMars) => {
 			cards.insertAdjacentHTML('beforeend', `<div class='card'>
 				<p class='alert'>Загрузка данных...</p>
 			</div>`)
 		})
 	
-		await sleep(3000)
-	
 		let cardsItems = document.querySelectorAll('.card')
 		for (let card of cardsItems) {
 			card.remove()
 		}
+
+		container.querySelector('.loader').remove()
 	
 		dataFromMars.forEach((dataFromMars) => {
 			let cardDate = dataFromMars.date,
@@ -94,10 +95,6 @@ async function showCards() {
 	}
 }
 
-// Object.prototype.btnLog = () => {
-// 	this.date
-// }
-
 const btnLog = () => {
 	const card = event.target.parentNode
 
@@ -110,5 +107,7 @@ const btnLog = () => {
 
 	const {date, ...otherCharacteristics} = cardValue
 
-	console.log(date + {otherCharacteristics})
+	console.log(date, {otherCharacteristics})
 }
+
+showCards()

@@ -63,3 +63,13 @@ body {
 	color: #000;
 	font-size: 1.5em;
 }
+
+.loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1em;
+	margin: 1em;
+	background-color: #f79f1f;
+	border-radius: 10px;
+}
